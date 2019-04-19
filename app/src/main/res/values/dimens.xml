@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_audio_horizontal_padding">16dp</dimen>
+    <dimen name="item_audio_vertical_padding">8dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="elevation_4">4dp</dimen>
+    <dimen name="item_audio_title_text_size">14sp</dimen>
+    <dimen name="item_audio_artist_text_size">12sp</dimen>
+    <dimen name="elevation_8">8dp</dimen>
+</resources>

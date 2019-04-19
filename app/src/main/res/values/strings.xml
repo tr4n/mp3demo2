@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">mp3demo</string>
+    <string name="app_name">DemoMp3Player</string>
+    <string name="item_audio_default_title">You belong to me</string>
+    <string name="item_audio_default_artist">Taylor Swift</string>
+    <string name="channel_name">Demo mp3 mvp</string>
+    <string name="channel_description">Demo mp3 mvp</string>
+    <string name="notification_title">title</string>
+    <string name="notification_message">message</string>
+    <string name="ticker_text">ticker</string>
+    <string name="message_data_not_avaiable">Data is not avaiable!</string>
 </resources>
