@@ -11,12 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".service.AudioPlayerService" android:enabled="true" android:permission="">
+        <service android:name="com.example.mp3demo.service.AudioPlayerService" android:enabled="true" android:permission="">
             <intent-filter>
                 <action android:name="com.example.action.PLAY"/>
             </intent-filter>
         </service>
-        <activity android:name=".ui.audios.AudiosActivity">
+        <activity android:name="com.example.mp3demo.ui.audios.AudiosActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
