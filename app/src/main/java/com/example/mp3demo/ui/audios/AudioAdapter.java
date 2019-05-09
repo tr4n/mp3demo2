@@ -13,70 +13,53 @@ import com.example.mp3demo.data.model.Audio;
 import com.example.mp3demo.ui.BaseRecyclerViewAdapter;
 import com.example.mp3mvp.R;
 
-import java.util.ArrayList;
-import java.util.List;
+public class AudioAdapter extends BaseRecyclerViewAdapter<Audio, AudioAdapter.AudioViewHolder> {
 
-public class AudioAdapter extends BaseRecyclerViewAdapter<AudioAdapter.AudioViewHolder> {
-    private final List<Audio> mAudioModels = new ArrayList<>();
     private final ItemClickListener mItemClickListener;
 
-    AudioAdapter(Context mContext) {
-        super(mContext);
-        mItemClickListener = (ItemClickListener) mContext;
+    public AudioAdapter(Context context) {
+        mItemClickListener = (ItemClickListener) context;
     }
-
 
     @NonNull
     @Override
     public AudioViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View convertView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_audio, viewGroup, false);
-        return new AudioViewHolder(convertView);
+        return new AudioViewHolder(convertView, mItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AudioViewHolder audioViewHolder, int i) {
-        audioViewHolder.onBindData(mAudioModels.get(i), mItemClickListener);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mAudioModels.size();
-    }
-
-    void updateData(List<Audio> audio) {
-        mAudioModels.clear();
-        mAudioModels.addAll(audio);
-        notifyDataSetChanged();
+        audioViewHolder.onBindData(getItem(i));
     }
 
     static class AudioViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView mTitle;
-        private final TextView mArtist;
+        private Audio mAudio;
+        private TextView mTitle;
+        private TextView mArtist;
 
-        AudioViewHolder(@NonNull View itemView) {
+        AudioViewHolder(@NonNull View itemView, final ItemClickListener itemClickListener) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.text_title);
             mArtist = itemView.findViewById(R.id.text_artist);
-
-        }
-
-        void onBindData(final Audio audio, final ItemClickListener mItemClickListener) {
-            mTitle.setText(audio.getTitle());
-            mArtist.setText(audio.getArtist());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mItemClickListener.onItemClicked(audio);
+                    if (null != mAudio) itemClickListener.onItemClicked(mAudio);
                 }
             });
         }
 
-
+        void onBindData(Audio audio) {
+            mAudio = audio;
+            mTitle.setText(audio.getTitle());
+            mArtist.setText(audio.getArtist());
+        }
     }
 
-    public interface ItemClickListener {
+    interface ItemClickListener {
         void onItemClicked(Audio audio);
     }
 }

@@ -34,11 +34,6 @@ public class Audio implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "{title= " + mTitle + ", path= " + mPath + "}";
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
@@ -61,5 +56,4 @@ public class Audio implements Parcelable {
     public String getPath() {
         return mPath;
     }
-
 }

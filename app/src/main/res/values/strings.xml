@@ -3,9 +3,12 @@
     <string name="item_audio_default_title">You belong to me</string>
     <string name="item_audio_default_artist">Taylor Swift</string>
     <string name="channel_name">Demo mp3 mvp</string>
-    <string name="channel_description">Demo mp3 mvp</string>
+    <string name="description_channel">Demo mp3 mvp</string>
     <string name="notification_title">title</string>
     <string name="notification_message">message</string>
     <string name="ticker_text">ticker</string>
-    <string name="message_data_not_available">Data is not available!</string>
+    <string name="msg_data_not_available">Data is not available!</string>
+    <string name="description_icon_notification">Icon Notification Description</string>
+    <string name="description_image_control">Image control audio status</string>
+    <string name="description_image_close">image close description</string>
 </resources>

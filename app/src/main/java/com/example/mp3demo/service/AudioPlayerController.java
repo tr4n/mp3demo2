@@ -16,5 +16,5 @@ interface AudioPlayerController {
 
     Audio getCurrent();
 
-    int getStatus();
+    int getState();
 }

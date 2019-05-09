@@ -1,22 +1,23 @@
 package com.example.mp3demo.data.repository;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.example.mp3demo.data.model.Audio;
 import com.example.mp3demo.data.model.OnDataLoadedCallback;
 import com.example.mp3demo.data.source.AudioDataSource;
-import com.example.mp3demo.data.source.local.AudioLocalDataSource;
+
+import java.util.List;
 
 public class AudiosRepository implements AudioDataSource {
 
-    private final Context mContext;
+    private AudioDataSource mAudioDataSource;
 
-    public AudiosRepository(Context context) {
-        mContext = context;
+    public AudiosRepository(AudioDataSource audioDataSource) {
+        mAudioDataSource = audioDataSource;
     }
 
     @Override
-    public boolean getAllAudios(@NonNull OnDataLoadedCallback callback) {
-        return AudioLocalDataSource.getInstance(mContext).getAllExternalAudios(callback);
+    public void getAllAudios(@NonNull OnDataLoadedCallback<List<Audio>> callback) {
+        mAudioDataSource.getAllAudios(callback);
     }
 }

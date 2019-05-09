@@ -8,34 +8,36 @@ import java.util.List;
 
 interface AudiosContract {
     interface View extends BaseView<Presenter> {
+        boolean isPermissionGranted(String[] permissions);
+
         void showExternalAudios(List<Audio> audios);
 
         void showCurrentAudioTab(Audio audio);
 
         void hideCurrentAudioTab();
 
-        void updateCurrentAudioStatus(int status);
+        void setPauseAudioState();
 
+        void setPlayingAudioState();
+
+        void updateCurrentAudioTab();
+
+        void startAudio(Audio audio);
+
+        void stopAudio();
+
+        void toast(String message);
+
+        void destroyService();
     }
 
     interface Presenter extends BasePresenter {
-        boolean isPermissionGranted(String[] permissions);
-
         void loadExternalAudios();
 
-        void bindService();
+        void setCurrentAudioState(int state);
 
-        boolean updateCurrentAudioTab();
+        void updateCurrentAudio(int state, Audio audio);
 
-        boolean startAudio(Audio audio);
-
-        boolean controlPlayer();
-
-        boolean stopAudio();
-
-        void unbindService();
-
-        boolean destroyService();
-
+        void changeAudioState();
     }
 }

@@ -4,5 +4,5 @@ public interface OnDataLoadedCallback<T> {
 
     void onDataLoaded(T data);
 
-    void onDataNotAvailable();
+    void onDataNotAvailable(Exception exception);
 }

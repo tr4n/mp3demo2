@@ -10,6 +10,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
@@ -24,11 +25,12 @@ import java.io.IOException;
 
 public class AudioPlayerService extends Service implements AudioPlayerController {
 
-    private static final String CHANNEL_ID = "com.example.demomp3player";
+    private static final String CHANNEL_ID = "com.example.mp3demo";
+    private static final String EXTRA_AUDIO = "com.example.mp3demo.AUDIO";
     private static final int NOTIFICATION_ID = 0;
-    private final IBinder mBinder = new PlayAudioBinder();
     private static int sCurrentPosition = 0;
     private static Audio sCurrentAudio;
+    private IBinder mBinder = new PlayAudioBinder();
     private MediaPlayer mMediaPlayer;
 
     public AudioPlayerService() {
@@ -42,7 +44,8 @@ public class AudioPlayerService extends Service implements AudioPlayerController
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        final Audio request = intent.getExtras().getParcelable(Constant.EXTRA_AUDIO);
+        final Bundle bundle = intent.getExtras();
+        final Audio request = bundle != null ? (Audio) bundle.getParcelable(EXTRA_AUDIO) : null;
         if (null != request) {
             sCurrentAudio = request;
             create();
@@ -109,7 +112,7 @@ public class AudioPlayerService extends Service implements AudioPlayerController
     }
 
     @Override
-    public int getStatus() {
+    public int getState() {
         return (null == sCurrentAudio || null == mMediaPlayer) ? Constant.AUDIO_EMPTY
                 : mMediaPlayer.isPlaying() ? Constant.AUDIO_PLAYING
                 : Constant.AUDIO_PAUSE;
@@ -121,7 +124,7 @@ public class AudioPlayerService extends Service implements AudioPlayerController
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
-        onCreateNotificationChannel();
+        createNotificationChannel();
 
         Notification notification = getNotification(audio, pendingIntent);
 
@@ -146,11 +149,10 @@ public class AudioPlayerService extends Service implements AudioPlayerController
                 .build();
     }
 
-    private void onCreateNotificationChannel() {
-
+    private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
+            String description = getString(R.string.description_channel);
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, importance);
             notificationChannel.setDescription(description);
